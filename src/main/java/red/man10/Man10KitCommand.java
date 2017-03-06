@@ -35,7 +35,7 @@ public class Man10KitCommand implements CommandExecutor {
         ////////////////////////////////////
         if (args[0].equalsIgnoreCase("save")) {
 
-            if (args.length < 1) {
+            if (args.length <= 1) {
                 p.sendMessage("/mkit save [KitName]");
                 return false;
             }
@@ -49,7 +49,7 @@ public class Man10KitCommand implements CommandExecutor {
         ////////////////////////////////////
         if (args[0].equalsIgnoreCase("load")) {
 
-            if (args.length < 1) {
+            if (args.length <= 1) {
                 p.sendMessage("/mkit load [KitName]");
                 return false;
             }
@@ -70,8 +70,17 @@ public class Man10KitCommand implements CommandExecutor {
             plugin.delete(p,args[1]);
             return true;
         }
+        /////////////////////////////////////
+        //          list
+        ////////////////////////////////////
+        if (args[0].equalsIgnoreCase("list")) {
+
+            plugin.list(p);
+            return true;
+        }
 
         return true;
+
     }
 
     void showHelp(Player p){

@@ -81,7 +81,32 @@ public final class Man10Kit extends JavaPlugin {
 
         return true;
     }
-    //      キットを読み込む
+
+    //      キット
+    public boolean list(Player p) {
+
+        File folder = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
+
+        File[] files = folder.listFiles();  // (a)
+        for (File f : files) {
+            if (f.isFile()){  // (c)
+                String filename = f.getName();
+
+                if(filename.substring(0,1).equalsIgnoreCase(".")){
+                    continue;
+                }
+
+                int point = filename.lastIndexOf(".");
+                if (point != -1) {
+                    filename =  filename.substring(0, point);
+                }
+                p.sendMessage(filename);
+            }
+        }
+
+        return true;
+    }
+        //      キットを読み込む
     public boolean load(Player p, String kitName){
         String fileName = kitName;
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
