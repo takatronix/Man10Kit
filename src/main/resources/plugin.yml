@@ -1,0 +1,40 @@
+name: Man10Kit
+version: ${project.version}
+main: red.man10.kit
+prefix: Man10Kit
+authors: [takatronix]
+description: Man10 Kit Plugin
+website: http://man10.red
+commands:
+    mkit:
+        description: Commands to manage kits
+        usage: |
+            /mkit list - List all kits
+            /mkit load - Load a kit
+            /mkit save - Save your inventry to kit
+            /mkit delete - Delete a saved kit
+            User /help for more information
+    mkit list:
+        description: List all kits
+        usage: /mkit list
+        permission: man10.kit.list
+    mkit save:
+        description: Save your inventry to kit
+        usage: /mkit save [KitName]
+        permission: man10.kit.save
+    mkit load:
+        description: Load a kit
+        usage: /mkit load [KitName]
+        permission: man10.kit.load
+    mkit delete:
+        description: Delete a saved kit
+        usage: /mkit delete [KitName]
+        permission: man10.kit.delete
+    mkit push:
+        description: Push user's inventry
+        usage: /mkit push [UserName]
+        permission: man10.kit.push
+    mkit pop:
+        description: Pop user's inventry
+        usage: /mkit pop [UserName]
+        permission: man10.kit.pop
