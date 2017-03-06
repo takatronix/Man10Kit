@@ -31,7 +31,7 @@ public class Man10KitCommand implements CommandExecutor {
         }
 
         ////////////////////////////////////
-        //          保存
+        //          save
         ////////////////////////////////////
         if (args[0].equalsIgnoreCase("save")) {
 
@@ -57,7 +57,21 @@ public class Man10KitCommand implements CommandExecutor {
             plugin.load(p,args[1]);
             return true;
         }
-        return false;
+        /////////////////////////////////////
+        //          delete
+        ////////////////////////////////////
+        if (args[0].equalsIgnoreCase("delete")) {
+
+            if (args.length < 1) {
+                p.sendMessage("/mkit delete [KitName]");
+                return false;
+            }
+
+            plugin.delete(p,args[1]);
+            return true;
+        }
+
+        return true;
     }
 
 }
