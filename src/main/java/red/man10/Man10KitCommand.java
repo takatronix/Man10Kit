@@ -21,12 +21,12 @@ public class Man10KitCommand implements CommandExecutor {
 
         //      引数がない場合
         if (args.length < 1) {
-            //showHelp(p);
+            showHelp(p);
             return true;
         }
 
         if (args[0].equalsIgnoreCase("help")) {
-            // showHelp(p);
+             showHelp(p);
             return true;
         }
 
@@ -72,6 +72,20 @@ public class Man10KitCommand implements CommandExecutor {
         }
 
         return true;
+    }
+
+    void showHelp(Player p){
+        p.sendMessage("§e==============§d●§f●§a●§e Man10 KitPlugin §d●§f●§a●§e===============");
+        p.sendMessage("" +
+                "http://man10.red by takatronix\n" +
+                "/mkit list - List all kits\n" +
+                "/mkit load - Load a kit\n" +
+                "/mkit save - Save your inventory to kit\n" +
+                "/mkit delete - Delete a saved kit\n" +
+                "/mkit push - Push user's inventory\n" +
+                "/mkit pop - Pop user's inventory"
+
+        );
     }
 
 }
