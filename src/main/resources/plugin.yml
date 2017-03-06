@@ -9,13 +9,13 @@ commands:
     mkit:
         description: Commands to manage kits
         usage: |
+            Man10 Kit Plugin 'http://man10.red' by takatronix
             /mkit list - List all kits
             /mkit load - Load a kit
             /mkit save - Save your inventry to kit
             /mkit delete - Delete a saved kit
             /mkit push - Push user's inventry
             /mkit pop - Pop user's inventry
-            User /help for more information
     mkit list:
         description: List all kits
         usage: /mkit list
