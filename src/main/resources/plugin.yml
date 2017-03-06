@@ -13,6 +13,8 @@ commands:
             /mkit load - Load a kit
             /mkit save - Save your inventry to kit
             /mkit delete - Delete a saved kit
+            /mkit push - Push user's inventry
+            /mkit pop - Pop user's inventry
             User /help for more information
     mkit list:
         description: List all kits
@@ -24,7 +26,7 @@ commands:
         permission: man10.kit.save
     mkit load:
         description: Load a kit
-        usage: /mkit load [KitName]
+        usage: /mkit load [KitName] [UserName]
         permission: man10.kit.load
     mkit delete:
         description: Delete a saved kit
@@ -36,5 +38,5 @@ commands:
         permission: man10.kit.push
     mkit pop:
         description: Pop user's inventry
-        usage: /mkit pop [UserName]
+        usage: /mkit pop [UserName] [UserName]
         permission: man10.kit.pop
