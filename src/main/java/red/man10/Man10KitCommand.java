@@ -90,7 +90,28 @@ public class Man10KitCommand implements CommandExecutor {
             }
 
 
+            ////////////////////////////////////
+            //          set
+            ////////////////////////////////////
+            if (args[0].equalsIgnoreCase("set")) {
 
+                Bukkit.getLogger().info("set");
+                if (args.length <= 2) {
+                    sender.sendMessage("/mkit set [username] [KitName]");
+                    return false;
+                }
+
+                Player t = Bukkit.getPlayer(args[1]);
+                if(t.isOnline() == false){
+                    Bukkit.getLogger().info("player is not online");
+                    sender.sendMessage(t.getName() +"はオンラインではありません");
+                    return false;
+                }
+
+
+                plugin.load(t,args[2]);
+                return true;
+            }
 
 
 
@@ -105,14 +126,14 @@ public class Man10KitCommand implements CommandExecutor {
 
                 Bukkit.getLogger().info("set");
                 if (args.length <= 2) {
-                    //p.sendMessage("/mkit set [username] [KitName]");
+                    sender.sendMessage("/mkit set [username] [KitName]");
                     return false;
                 }
 
                 Player t = Bukkit.getPlayer(args[1]);
                 if(t.isOnline() == false){
                     Bukkit.getLogger().info("player is not online");
-                 //   p.sendMessage(t.getName() +"はオンラインではありません");
+                    sender.sendMessage(t.getName() +"はオンラインではありません");
                     return false;
                 }
 
@@ -130,7 +151,7 @@ public class Man10KitCommand implements CommandExecutor {
 
     }
 
-    void showHelp(Player p){
+    void showHelp(CommandSender p){
         p.sendMessage("§e==============§d●§f●§a●§e Man10 KitPlugin §d●§f●§a●§e===============");
         p.sendMessage("" +
                 "http://man10.red by takatronix\n" +
