@@ -20,6 +20,64 @@ public class Man10KitCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+        if (args[0].equalsIgnoreCase("push")) {
+
+
+            //    引数がある場合
+            if (args.length == 2) {
+                String name = args[1];
+                Player p = Bukkit.getPlayer(name);
+                if(p == null){
+                    sender.sendMessage(name+"はオフラインです");
+                    return false;
+                }
+                plugin.push(p);
+                sender.sendMessage(name+"のユーザーデータをバックアップしました");
+                return true;
+            }
+
+            //      ユーザーコマンド
+            if (sender instanceof Player){
+                Player p = (Player) sender;
+                plugin.push(p);
+                return true;
+            }
+
+
+
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase("pop")) {
+            //    引数がある場合
+            if (args.length == 2) {
+                String name = args[1];
+                Player p = Bukkit.getPlayer(name);
+                if(p == null){
+                    sender.sendMessage(name+"はオフラインです");
+                    return false;
+                }
+                if(plugin.push(p)){
+                    sender.sendMessage(name+"のユーザーデータを復元しました");
+                }else{
+                    sender.sendMessage(name+"のユーザーデータは存在しない");
+                }
+                return true;
+            }
+
+            //      ユーザーコマンド
+            if (sender instanceof Player){
+                Player p = (Player) sender;
+                plugin.pop(p);
+                return true;
+            }
+
+            return true;
+        }
+
+
+
+
 
         if(sender instanceof Player)
         {
@@ -160,8 +218,7 @@ public class Man10KitCommand implements CommandExecutor {
                 "/mkit save - Save your inventory to kit\n" +
                 "/mkit delete - Delete a saved kit\n" +
                 "/mkit push - Push user's inventory\n" +
-                "/mkit pop - Pop user's inventory" +
-                "/mkit set - "
+                "/mkit pop - Pop user's inventory"
 
         );
     }

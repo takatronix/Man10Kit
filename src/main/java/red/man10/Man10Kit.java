@@ -52,6 +52,36 @@ public final class Man10Kit extends JavaPlugin {
         }
     }
     //      キットを保存する
+    public boolean push(Player p){
+
+        PlayerInventory inv= p.getInventory();
+        String kitString = toBase64(inv);
+
+        String fileName = p.getUniqueId().toString();
+        File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Users");
+        File f = new File(userdata, File.separator + fileName + ".yml");
+        FileConfiguration data = YamlConfiguration.loadConfiguration(f);
+
+
+        if (!f.exists()) {
+            try {
+
+                data.set("creator", p.getName());
+                data.set("inventory",p.getInventory().getContents());
+                data.set("armor",p.getInventory().getArmorContents());
+                data.save(f);
+            } catch (IOException exception) {
+                p.sendMessage("キットの保存に失敗した");
+                exception.printStackTrace();
+                return false;
+            }
+        }
+
+        serverMessage(""+p.getName()+ ":ユーザーデータを保存した:"+kitString);
+
+        return true;
+    }
+    //      キットを保存する
     public boolean save(Player p, String kitName){
 
         PlayerInventory inv= p.getInventory();
@@ -147,6 +177,46 @@ public final class Man10Kit extends JavaPlugin {
 
         return true;
     }
+    //      キットを読み込む
+    public boolean pop(Player p){
+        String fileName = p.getUniqueId().toString();
+        File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Users");
+        File f = new File(userdata, File.separator + fileName + ".yml");
+        FileConfiguration data = YamlConfiguration.loadConfiguration(f);
+        if (!f.exists()) {
+            p.sendMessage("ユーザーデーターは存在しない:"+p.getName());
+            return false;
+        }
+
+
+        Object a = data.get("inventory");
+        Object b = data.get("armor");
+
+        if(a == null || b == null){
+            p.sendMessage("No saved inventory to load");
+            return true;
+        }
+        ItemStack[] inventory = null;
+        ItemStack[] armor = null;
+        if (a instanceof ItemStack[]){
+            inventory = (ItemStack[]) a;
+        } else if (a instanceof List){
+            List lista = (List) a;
+            inventory = (ItemStack[]) lista.toArray(new ItemStack[0]);
+        }
+        if (b instanceof ItemStack[]){
+            armor = (ItemStack[]) b;
+        } else if (b instanceof List){
+            List listb = (List) b;
+            armor = (ItemStack[]) listb.toArray(new ItemStack[0]);
+        }
+        p.getInventory().clear();
+        p.getInventory().setContents(inventory);
+        p.getInventory().setArmorContents(armor);
+
+        return true;
+    }
+
     boolean saveUserKit(Player p, String kitName){
 
         String kitString = toBase64(p.getInventory());
