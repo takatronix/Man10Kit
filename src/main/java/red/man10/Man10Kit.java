@@ -77,7 +77,7 @@ public final class Man10Kit extends JavaPlugin {
             }
         }
 
-        serverMessage(""+p.getName()+ ":ユーザーデータを保存した:"+fileName);
+        //serverMessage(""+p.getName()+ ":ユーザーデータを保存した:"+fileName);
 
         return true;
     }
@@ -107,7 +107,7 @@ public final class Man10Kit extends JavaPlugin {
             }
         }
 
-        serverMessage(""+p.getName()+ ":キットを保存した:"+kitName);
+        //serverMessage(""+p.getName()+ ":キットを保存した:"+kitName);
 
         return true;
     }
