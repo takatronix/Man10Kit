@@ -62,6 +62,7 @@ public final class Man10Kit extends JavaPlugin {
         File f = new File(userdata, File.separator + fileName + ".yml");
         FileConfiguration data = YamlConfiguration.loadConfiguration(f);
 
+        f.delete();
 
         if (!f.exists()) {
             try {
