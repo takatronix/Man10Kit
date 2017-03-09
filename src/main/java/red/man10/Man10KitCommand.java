@@ -57,7 +57,7 @@ public class Man10KitCommand implements CommandExecutor {
                     sender.sendMessage(name+"はオフラインです");
                     return false;
                 }
-                if(plugin.push(p)){
+                if(plugin.pop(p)){
                     sender.sendMessage(name+"のユーザーデータを復元しました");
                 }else{
                     sender.sendMessage(name+"のユーザーデータは存在しない");

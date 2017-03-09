@@ -55,7 +55,7 @@ public final class Man10Kit extends JavaPlugin {
     public boolean push(Player p){
 
         PlayerInventory inv= p.getInventory();
-        String kitString = toBase64(inv);
+        //String kitString = toBase64(inv);
 
         String fileName = p.getUniqueId().toString();
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Users");
@@ -65,7 +65,6 @@ public final class Man10Kit extends JavaPlugin {
 
         if (!f.exists()) {
             try {
-
                 data.set("creator", p.getName());
                 data.set("inventory",p.getInventory().getContents());
                 data.set("armor",p.getInventory().getArmorContents());
@@ -77,7 +76,7 @@ public final class Man10Kit extends JavaPlugin {
             }
         }
 
-        serverMessage(""+p.getName()+ ":ユーザーデータを保存した:"+kitString);
+        serverMessage(""+p.getName()+ ":ユーザーデータを保存した:"+fileName);
 
         return true;
     }
@@ -85,7 +84,7 @@ public final class Man10Kit extends JavaPlugin {
     public boolean save(Player p, String kitName){
 
         PlayerInventory inv= p.getInventory();
-        String kitString = toBase64(inv);
+      //  String kitString = toBase64(inv);
 
         String fileName = kitName;
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
