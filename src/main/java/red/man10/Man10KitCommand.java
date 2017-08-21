@@ -37,6 +37,7 @@ public class Man10KitCommand implements CommandExecutor {
                 sender.sendMessage(t.getName() +"はオンラインではありません");
                 return false;
             }
+            plugin.push(t);
             Bukkit.getLogger().info("_jail");
             plugin.load(t,"_jail");
             return true;
