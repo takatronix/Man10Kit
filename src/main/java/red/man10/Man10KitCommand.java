@@ -20,6 +20,29 @@ public class Man10KitCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+        ////////////////////////////////////
+        //          jail
+        ////////////////////////////////////
+        if (args[0].equalsIgnoreCase("jail")) {
+
+            if (args.length != 2) {
+                sender.sendMessage("/mkit jail [username]");
+                return false;
+            }
+            Player t = Bukkit.getPlayer(args[1]);
+            Bukkit.getLogger().info(args[1]);
+
+            if(t.isOnline() == false){
+                Bukkit.getLogger().info("player is not online");
+                sender.sendMessage(t.getName() +"はオンラインではありません");
+                return false;
+            }
+            Bukkit.getLogger().info("_jail");
+            plugin.load(t,"_jail");
+            return true;
+        }
+
+
         if (args[0].equalsIgnoreCase("push")) {
 
 
@@ -47,12 +70,37 @@ public class Man10KitCommand implements CommandExecutor {
 
             return true;
         }
+        ////////////////////////////////////
+        //          set
+        ////////////////////////////////////
+        if (args[0].equalsIgnoreCase("set")) {
 
-        if (args[0].equalsIgnoreCase("pop")) {
+            Bukkit.getLogger().info("set");
+            if (args.length != 3) {
+                sender.sendMessage("/mkit set [username] [KitName]");
+                return false;
+            }
+
+            Player t = Bukkit.getPlayer(args[1]);
+            if(t.isOnline() == false){
+                Bukkit.getLogger().info("player is not online");
+                sender.sendMessage(t.getName() +"はオンラインではありません");
+                return false;
+            }
+
+
+            plugin.load(t,args[2]);
+            return true;
+        }
+
+
+        if ((args[0].equalsIgnoreCase("pop")) || (args[0].equalsIgnoreCase("unjail"))) {
             //    引数がある場合
+
             if (args.length == 2) {
                 String name = args[1];
                 Player p = Bukkit.getPlayer(name);
+                p.sendMessage(args[0]);
                 if(p == null){
                     sender.sendMessage(name+"はオフラインです");
                     return false;
@@ -148,33 +196,14 @@ public class Man10KitCommand implements CommandExecutor {
             }
 
 
-            ////////////////////////////////////
-            //          set
-            ////////////////////////////////////
-            if (args[0].equalsIgnoreCase("set")) {
-
-                Bukkit.getLogger().info("set");
-                if (args.length <= 2) {
-                    sender.sendMessage("/mkit set [username] [KitName]");
-                    return false;
-                }
-
-                Player t = Bukkit.getPlayer(args[1]);
-                if(t.isOnline() == false){
-                    Bukkit.getLogger().info("player is not online");
-                    sender.sendMessage(t.getName() +"はオンラインではありません");
-                    return false;
-                }
-
-
-                plugin.load(t,args[2]);
-                return true;
-            }
 
 
 
+            showHelp(p);
+            return true;
             // The command was executed by a player.
         }
+        /*
         else if(sender instanceof ConsoleCommandSender)
         {
             ////////////////////////////////////
@@ -204,11 +233,14 @@ public class Man10KitCommand implements CommandExecutor {
         }
 
 
+        //The command was executed from console.
 
+        showHelp(sender);
+
+
+*/
         return true;
-
     }
-
     void showHelp(CommandSender p){
         p.sendMessage("§e==============§d●§f●§a●§e Man10 KitPlugin §d●§f●§a●§e===============");
         p.sendMessage("" +
@@ -218,8 +250,9 @@ public class Man10KitCommand implements CommandExecutor {
                 "/mkit save - Save your inventory to kit\n" +
                 "/mkit delete - Delete a saved kit\n" +
                 "/mkit push - Push user's inventory\n" +
-                "/mkit pop - Pop user's inventory"
-
+                "/mkit jail - Apply Jail Kit\n" +
+                "/mkit unuail - Revert user's inventory\n" +
+                "/mkit pop - Pop user's inventory\n"
         );
     }
 
