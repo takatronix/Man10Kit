@@ -23,9 +23,7 @@ import java.io.IOException;
 import java.util.List;
 
 public final class Man10Kit extends JavaPlugin {
-
-
-
+    Man10KitCommand command;
 
     @Override
     public void onEnable() {
@@ -46,9 +44,9 @@ public final class Man10Kit extends JavaPlugin {
         File f = new File(userdata, File.separator + fileName + ".yml");
 
         if(f.delete()){
-            p.sendMessage(kitName+" を削除した");
+            command.showMessage(p,kitName+"を削除した");
         }else{
-            p.sendMessage(kitName+" の削除に失敗した");
+            command.showErrorMessage(p,kitName+"削除に失敗した");
         }
         return false;
     }
@@ -70,8 +68,9 @@ public final class Man10Kit extends JavaPlugin {
                 data.set("inventory",p.getInventory().getContents());
                 data.set("armor",p.getInventory().getArmorContents());
                 data.save(f);
+                command.showMessage(p,"ユーザーキットをバックアップしました");
             } catch (IOException exception) {
-                p.sendMessage("キットの保存に失敗した");
+                command.showErrorMessage(p,"キットpushに失敗した:"+exception.getMessage());
                 exception.printStackTrace();
                 return false;
             }
@@ -96,9 +95,9 @@ public final class Man10Kit extends JavaPlugin {
                 data.set("inventory",p.getInventory().getContents());
                 data.set("armor",p.getInventory().getArmorContents());
                 data.save(f);
-                p.sendMessage("キットを保存しました:"+kitName);
+                command.showMessage(p,"キットを保存しました:"+kitName);
             } catch (IOException exception) {
-                p.sendMessage("キットの保存に失敗した"+kitName);
+                command.showErrorMessage(p,"キットの保存に失敗した"+exception.getMessage());
                 exception.printStackTrace();
                 return false;
             }
@@ -149,7 +148,7 @@ public final class Man10Kit extends JavaPlugin {
         Object b = data.get("armor");
 
         if(a == null || b == null){
-            p.sendMessage("保存されたインベントリがない"+kitName);
+            command.showErrorMessage(p,"保存されたインベントリがない"+kitName);
             return true;
         }
         ItemStack[] inventory = null;
@@ -170,8 +169,7 @@ public final class Man10Kit extends JavaPlugin {
         p.getInventory().setContents(inventory);
         p.getInventory().setArmorContents(armor);
 
-        p.sendMessage("キットを読み込みました:"+kitName);
-
+        command.showMessage(p,"キットを読み込みました:"+kitName);
         return true;
     }
     //      キットを読み込む
@@ -182,16 +180,15 @@ public final class Man10Kit extends JavaPlugin {
         File f = new File(userdata, File.separator + fileName + ".yml");
         FileConfiguration data = YamlConfiguration.loadConfiguration(f);
         if (!f.exists()) {
-            p.sendMessage("ユーザーデーターは存在しない:"+p.getName());
+            command.showErrorMessage(p,"ユーザーに保存されたキットはありません");
             return false;
         }
-
 
         Object a = data.get("inventory");
         Object b = data.get("armor");
 
         if(a == null || b == null){
-            p.sendMessage("No saved inventory to load");
+            command.showErrorMessage(p,"インベントリに読み込むものはありません");
             return true;
         }
         ItemStack[] inventory = null;
@@ -212,6 +209,7 @@ public final class Man10Kit extends JavaPlugin {
         p.getInventory().setContents(inventory);
         p.getInventory().setArmorContents(armor);
 
+        command.showMessage(p,"ユーザーキットを復元しました");
         return true;
     }
 

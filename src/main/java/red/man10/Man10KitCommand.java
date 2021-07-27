@@ -8,6 +8,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Level;
+
 /**
  * Created by takatronix on 2017/03/06.
  */
@@ -27,16 +29,25 @@ public class Man10KitCommand implements CommandExecutor {
 
     boolean checkPermission(CommandSender sender,String permission){
         if(!sender.hasPermission(permission)){
-            sender.sendMessage(permissionError);
+            showErrorMessage(sender,permissionError);
             return true;
         }
+
         return false;
     }
-
+    void showErrorMessage(CommandSender sender,String message){
+        sender.sendMessage("§4"+message);
+        Bukkit.getLogger().log(Level.WARNING,message);
+    }
+    void showMessage(CommandSender sender,String message){
+        sender.sendMessage("§5"+message);
+    }
 
     public Man10KitCommand(Man10Kit plugin) {
         this.plugin = plugin;
+        this.plugin.command = this;
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
@@ -65,7 +76,7 @@ public class Man10KitCommand implements CommandExecutor {
                 return false;
 
             if (args.length != 2) {
-                sender.sendMessage("§5§l/mkit delete [KitName]");
+                showErrorMessage(sender,"/mkit delete [キット名]");
                 return false;
             }
             Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
@@ -83,13 +94,13 @@ public class Man10KitCommand implements CommandExecutor {
 
             Bukkit.getLogger().info("set");
             if (args.length != 3) {
-                sender.sendMessage("§5/mkit set [ユーザー名] [キット名]");
+                showErrorMessage(sender,"/mkit set [ユーザー名] [キット名]");
                 return false;
             }
 
             Player t = Bukkit.getPlayer(args[1]);
             if(t.isOnline() == false){
-                sender.sendMessage(t.getName() +"はオンラインではありません");
+                showErrorMessage(sender,t.getName() +"はオンラインではありません");
                 return false;
             }
             Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
@@ -98,91 +109,7 @@ public class Man10KitCommand implements CommandExecutor {
             return true;
         }
 
-        if (sender instanceof Player == false){
-            sender.sendMessage("§5プレイヤーのみのコマンドになります");
-            return false;
-        }
-
-
-        Player player = (Player)sender;
-
-        /////////////////////////////////////////
-        //  Saveコマンド
-        if (args[0].equalsIgnoreCase("save")) {
-            if(checkPermission(sender,savePermission))
-                return false;
-
-            if (args.length != 2) {
-                player.sendMessage("§a/mkit save [キット名]");
-                return false;
-            }
-            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-                plugin.save(player,args[1]);
-            });
-            return true;
-        }
-        /////////////////////////////////////////
-        //  Loadコマンド
-        if (args[0].equalsIgnoreCase("load")) {
-            if(checkPermission(sender,loadPermission))
-                return false;
-
-            if (args.length != 2) {
-                player.sendMessage("§a/mkit load [キット名]");
-                return false;
-            }
-            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-                plugin.load(player,args[1]);
-            });
-            return true;
-        }
-
-        /////////////////////////////////////////
-        //  setコマンド
-        if (args[0].equalsIgnoreCase("set")) {
-            if(checkPermission(sender,setPermission))
-                return false;
-
-            if (args.length != 2) {
-                player.sendMessage("§a/mkit load [キット名]");
-                return false;
-            }
-            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-                plugin.load(player,args[1]);
-            });
-            return true;
-        }
-
-
-
-        if (args[0].equalsIgnoreCase("push")) {
-            if(checkPermission(sender,pushPermission))
-                return false;
-
-            //    引数がある場合
-            if (args.length == 2) {
-                String name = args[1];
-                Player p = Bukkit.getPlayer(name);
-                if(p == null){
-                    sender.sendMessage(name+"はオフラインです");
-                    return false;
-                }
-                plugin.push(p);
-                sender.sendMessage(name+"のユーザーデータをバックアップしました");
-                return true;
-            }
-
-            //      ユーザーコマンド
-            if (sender instanceof Player){
-                Player p = (Player) sender;
-                plugin.push(p);
-                return true;
-            }
-            return true;
-        }
-
-
-
+        // Pop
         if (args[0].equalsIgnoreCase("pop")) {
             if(checkPermission(sender,popPermission))
                 return false;
@@ -194,6 +121,7 @@ public class Man10KitCommand implements CommandExecutor {
                 Player p = Bukkit.getPlayer(name);
                 p.sendMessage(args[0]);
                 if(p == null){
+                    showErrorMessage(sender,name+"はオフラインです");
                     sender.sendMessage(name+"はオフラインです");
                     return false;
                 }
@@ -214,6 +142,85 @@ public class Man10KitCommand implements CommandExecutor {
 
             return true;
         }
+
+
+
+        //      以下はプレイヤー専用コマンド
+
+
+        if (sender instanceof Player == false){
+            showErrorMessage(sender,"プレイヤーのみのコマンドになります");
+            return false;
+        }
+        Player player = (Player)sender;
+
+        /////////////////////////////////////////
+        //  Saveコマンド
+        if (args[0].equalsIgnoreCase("save")) {
+            if(checkPermission(sender,savePermission))
+                return false;
+
+            if (args.length != 2) {
+                showErrorMessage(sender,"/mkit save [キット名]");
+                return false;
+            }
+            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+                plugin.save(player,args[1]);
+            });
+            return true;
+        }
+        /////////////////////////////////////////
+        //  Loadコマンド
+        if (args[0].equalsIgnoreCase("load")) {
+            if(checkPermission(sender,loadPermission))
+                return false;
+
+            if (args.length != 2) {
+                showErrorMessage(sender,"/mkit load [キット名]");
+                return false;
+            }
+            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+                plugin.load(player,args[1]);
+            });
+            return true;
+        }
+
+        //  Pushユーザーデータを保存
+        if (args[0].equalsIgnoreCase("push")) {
+            if(checkPermission(sender,pushPermission))
+                return false;
+
+            //    引数がある場合(サーバor外部コマンド)
+            if (args.length == 2) {
+                String name = args[1];
+                Player p = Bukkit.getPlayer(name);
+                if(p == null){
+                    showErrorMessage(sender,name+"はオフラインです");
+                    return false;
+                }
+
+                Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+                    plugin.push(p);
+                });
+
+                showMessage(sender,name+"のインベントリをバックアップしました");
+                return true;
+            }
+
+            //      ユーザーコマンド
+            if (sender instanceof Player){
+                Player p = (Player) sender;
+                Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+                    plugin.push(p);
+                });
+
+                return true;
+            }
+            return true;
+        }
+
+
+
 
 
             showHelp(sender);
