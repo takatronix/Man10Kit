@@ -1,6 +1,7 @@
 package red.man10;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -114,24 +115,26 @@ public final class Man10Kit extends JavaPlugin {
     }
 
     //      キット
-    public boolean list(Player p) {
+    public boolean list(CommandSender p) {
 
         File folder = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
 
-        File[] files = folder.listFiles();  // (a)
+        p.sendMessage("§e§l========== 登録済みのキット =========");
+        int n = 1;
+        File[] files = folder.listFiles();
         for (File f : files) {
-            if (f.isFile()){  // (c)
+            if (f.isFile()){
                 String filename = f.getName();
-
+                //      隠しファイルは無視
                 if(filename.substring(0,1).equalsIgnoreCase(".")){
                     continue;
                 }
-
                 int point = filename.lastIndexOf(".");
                 if (point != -1) {
                     filename =  filename.substring(0, point);
                 }
-                p.sendMessage(filename);
+                p.sendMessage( "§e§l"+n +": §f§l" + filename);
+                n++;
             }
         }
 

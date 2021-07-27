@@ -20,10 +20,23 @@ public class Man10KitCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+        // 引数なし -> help
         if(args.length == 0){
             showHelp(sender);
             return false;
         }
+
+        //  Listコマンド
+        if (args[0].equalsIgnoreCase("list")) {
+            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+                plugin.list(sender);
+            });
+            return true;
+        }
+
+
+
+
 
         if (args[0].equalsIgnoreCase("push")) {
             //    引数がある場合
@@ -164,14 +177,6 @@ public class Man10KitCommand implements CommandExecutor {
                 plugin.delete(p,args[1]);
                 return true;
             }
-            /////////////////////////////////////
-            //          list
-            ////////////////////////////////////
-            if (args[0].equalsIgnoreCase("list")) {
-
-                plugin.list(p);
-                return true;
-            }
 
 
 
@@ -220,7 +225,7 @@ public class Man10KitCommand implements CommandExecutor {
         return true;
     }
     void showHelp(CommandSender p){
-        p.sendMessage("§e==============§d●§f●§a●§e Man10 KitPlugin §d●§f●§a●§e===============");
+        p.sendMessage("§e==============§d●§f●§a●§e Man10 Kit Plugin §d●§f●§a●§e===============");
         p.sendMessage("" +
                 "/mkit list 登録済みのキットを表示\n" +
                 "/mkit load [キット名] キットをロードする(いまのインベントリは消えます)\n" +
