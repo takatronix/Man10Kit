@@ -229,13 +229,13 @@ public class Man10KitCommand implements CommandExecutor {
 
         p.sendMessage("§e==============§d●§f●§a●§e Man10 Kit Plugin §d●§f●§a●§e===============");
         p.sendMessage("" +
-                "/mkit list 登録済みのキットを表示\n" +
-                "/mkit load [キット名] キットをロードする(いまのインベントリは消えます)\n" +
-                "/mkit save [キット名] 現在のインベントリを保存する\n" +
-                "/mkit set [キット名] 現在のインベントリを保存する\n" +
-                "/mkit delete [キット名] 登録済みのキットを削除する\n" +
-                "/mkit push 現在のインベントリを瞬間保存する\n" +
-                "/mkit pop 瞬間保存したキットを復元する\n"+
+                "§e/mkit list §f登録済みのキットを表示\n" +
+                "§e/mkit load [キット名] §fキットをロードする(いまのインベントリは消えます)\n" +
+                "§e/mkit save [キット名] §f現在のインベントリを保存する\n" +
+                "§e/mkit set [ユーザー名] [キット名] §fプレーヤーにキットを設定する\n" +
+                "§e/mkit delete [キット名] §f登録済みのキットを削除する\n" +
+                "§e/mkit push §f現在のインベントリを瞬間保存する\n" +
+                "§e/mkit pop §f瞬間保存したキットを復元する\n"+
                 "§e§lhttp://man10.red by takatronix\n"
         );
     }
