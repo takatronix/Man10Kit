@@ -39,19 +39,17 @@ public final class Man10Kit extends JavaPlugin {
         // Plugin shutdown logic
     }
     //      キットを削除
-    public boolean delete(Player p, String kitName){
+    public boolean delete(CommandSender p, String kitName){
         String fileName = kitName;
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
         File f = new File(userdata, File.separator + fileName + ".yml");
 
         if(f.delete()){
-            serverMessage(p.getDisplayName()+"はkit: "+kitName+" を削除した");
-            return false;
+            p.sendMessage(kitName+" を削除した");
         }else{
-            serverMessage(p.getDisplayName()+"はkit: "+kitName+" の削除に失敗した");
-
-            return false;
+            p.sendMessage(kitName+" の削除に失敗した");
         }
+        return false;
     }
     //      キットを保存する
     public boolean push(Player p){

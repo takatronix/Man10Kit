@@ -34,6 +34,19 @@ public class Man10KitCommand implements CommandExecutor {
             return true;
         }
 
+        //  Deleteコマンド
+        if (args[0].equalsIgnoreCase("delete")) {
+
+            if (args.length != 2) {
+                sender.sendMessage("§5§l/mkit delete [KitName]");
+                return false;
+            }
+            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+                plugin.delete(sender,args[1]);
+            });
+            return true;
+        }
+
 
 
 
@@ -163,20 +176,6 @@ public class Man10KitCommand implements CommandExecutor {
             }
 
 
-
-            /////////////////////////////////////
-            //          delete
-            ////////////////////////////////////
-            if (args[0].equalsIgnoreCase("delete")) {
-
-                if (args.length < 1) {
-                    p.sendMessage("/mkit delete [KitName]");
-                    return false;
-                }
-
-                plugin.delete(p,args[1]);
-                return true;
-            }
 
 
 
