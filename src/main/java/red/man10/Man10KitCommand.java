@@ -158,8 +158,6 @@ public class Man10KitCommand implements CommandExecutor {
                 Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
                     plugin.push(p);
                 });
-
-                showMessage(sender,name+"のインベントリをバックアップしました");
                 return true;
             }
 
