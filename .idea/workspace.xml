@@ -13,7 +13,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/red/man10/Man10Kit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/red/man10/Man10Kit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/red/man10/Man10KitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/red/man10/Man10KitCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1627342373716</updated>
-      <workItem from="1627342375050" duration="7428000" />
+      <workItem from="1627342375050" duration="9839000" />
     </task>
     <servers />
   </component>

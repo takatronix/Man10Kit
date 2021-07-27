@@ -24,18 +24,12 @@ import java.util.List;
 
 public final class Man10Kit extends JavaPlugin {
 
-    // permissions
-    final String helpPermission = "man10.red.man10kit.help";
-    final String loadPermission = "man10.red.man10kit.load";
-    final String savePermission = "man10.red.man10kit.save";
-    final String listPermission = "man10.red.man10kit.list";
-    final String deletePermission = "man10.red.man10kit.delete";
-    final String pushPermission = "man10.red.man10kit.push";
-    final String popPermission = "man10.red.man10kit.pop";
+
 
 
     @Override
     public void onEnable() {
+        getCommand("man10kit").setExecutor(new Man10KitCommand(this));
         getCommand("mkit").setExecutor(new Man10KitCommand(this));
         getCommand("kit").setExecutor(new Man10KitCommand(this));
     }
@@ -47,11 +41,6 @@ public final class Man10Kit extends JavaPlugin {
 
     //      キットを削除
     public boolean delete(CommandSender p, String kitName){
-        if(!p.hasPermission(deletePermission)){
-            p.sendMessage("§cコマンド権限がありません");
-            return false;
-        }
-
         String fileName = kitName;
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
         File f = new File(userdata, File.separator + fileName + ".yml");
@@ -66,10 +55,6 @@ public final class Man10Kit extends JavaPlugin {
 
     //      キットを保存する
     public boolean push(Player p){
-        if(!p.hasPermission(pushPermission)){
-            p.sendMessage("§cコマンド権限がありません");
-            return false;
-        }
 
         PlayerInventory inv= p.getInventory();
         String fileName = p.getUniqueId().toString();
@@ -98,10 +83,6 @@ public final class Man10Kit extends JavaPlugin {
     }
     //      キットを保存する
     public boolean save(Player p, String kitName){
-        if(!p.hasPermission(savePermission)){
-            p.sendMessage("§cコマンド権限がありません");
-            return false;
-        }
 
         PlayerInventory inv= p.getInventory();
 
@@ -127,10 +108,6 @@ public final class Man10Kit extends JavaPlugin {
 
     //      キット一覧
     public boolean list(CommandSender p) {
-        if(!p.hasPermission(listPermission)){
-            p.sendMessage("§cコマンド権限がありません");
-            return false;
-        }
 
         File folder = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
 
@@ -158,10 +135,6 @@ public final class Man10Kit extends JavaPlugin {
 
     //      キットを読み込む
     public boolean load(Player p, String kitName){
-        if(!p.hasPermission(loadPermission)){
-            p.sendMessage("§cコマンド権限がありません");
-            return false;
-        }
 
         String fileName = kitName;
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
@@ -203,10 +176,6 @@ public final class Man10Kit extends JavaPlugin {
     }
     //      キットを読み込む
     public boolean pop(Player p){
-        if(!p.hasPermission(popPermission)){
-            p.sendMessage("§cコマンド権限がありません");
-            return false;
-        }
 
         String fileName = p.getUniqueId().toString();
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Users");
