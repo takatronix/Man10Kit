@@ -169,7 +169,7 @@ public final class Man10Kit extends JavaPlugin {
         p.getInventory().setContents(inventory);
         p.getInventory().setArmorContents(armor);
 
-        command.showMessage(p,"キットを読み込みました:"+kitName);
+        command.showMessage(p,kitName+"キットを装備しました");
         return true;
     }
     //      キットを読み込む

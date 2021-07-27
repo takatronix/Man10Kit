@@ -7,29 +7,28 @@ description: Man10 Kit Plugin
 website: http://man10.red
 api-version: 1.17
 commands:
+    man10kit:
     mkit:
+    kit:
         description: Commands to manage kits
+    mkit help:
+        description: ヘルプ表示
+        usage: /mkit help
     mkit list:
-        description: List all kits
+        description: 保存されているキットを表示
         usage: /mkit list
-        permission: man10.kit.list
     mkit save:
-        description: Save your inventry to kit
-        usage: /mkit save [KitName]
-        permission: man10.kit.save
+        description: インベントリをキットに保存する
+        usage: /mkit save [キット名]
     mkit load:
-        description: Load a kit
+        description: 登録されているキットをロードする
         usage: /mkit load [KitName] [UserName]
-        permission: man10.kit.load
     mkit delete:
-        description: Delete a saved kit
-        usage: /mkit delete [KitName]
-        permission: man10.kit.delete
+        description: 保存済みのキットを削除する
+        usage: /mkit delete [キット名]
     mkit push:
-        description: Push user's inventry
-        usage: /mkit push [UserName]
-        permission: man10.kit.push
+        description: ユーザーのキットを即時保存する
+        usage: /mkit push (UserName)
     mkit pop:
-        description: Pop user's inventry
-        usage: /mkit pop [UserName] [UserName]
-        permission: man10.kit.pop
+        description: 即時保存されたキットを戻す
+        usage: /mkit pop (UserName)

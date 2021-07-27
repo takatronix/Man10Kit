@@ -16,7 +16,7 @@ import java.util.logging.Level;
 public class Man10KitCommand implements CommandExecutor {
     private Man10Kit plugin;
 
-    final String permissionError = "§cコマンド権限がありません";
+    final String permissionError = "§c§lコマンド権限がありません";
     // permissions
     final String helpPermission = "man10.red.man10kit.help";
     final String loadPermission = "man10.red.man10kit.load";
@@ -36,7 +36,7 @@ public class Man10KitCommand implements CommandExecutor {
         return false;
     }
     void showErrorMessage(CommandSender sender,String message){
-        sender.sendMessage("§4"+message);
+        sender.sendMessage("§a"+message);
         Bukkit.getLogger().log(Level.WARNING,message);
     }
     void showMessage(CommandSender sender,String message){
