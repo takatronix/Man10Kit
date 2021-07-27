@@ -30,6 +30,7 @@ public final class Man10Kit extends JavaPlugin {
       //  getServer().getPluginManager().registerEvents (this,this);
         //
         getCommand("mkit").setExecutor(new Man10KitCommand(this));
+        getCommand("kit").setExecutor(new Man10KitCommand(this));
     }
 
     @Override

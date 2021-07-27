@@ -8,6 +8,7 @@ website: http://man10.red
 api-version: 1.17
 commands:
     mkit:
+    kit:
         description: Commands to manage kits
     mkit list:
         description: List all kits

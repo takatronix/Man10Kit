@@ -20,33 +20,12 @@ public class Man10KitCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        ////////////////////////////////////
-        //          jail
-        ////////////////////////////////////
-        if (args[0].equalsIgnoreCase("jail")) {
-
-            if (args.length != 2) {
-                sender.sendMessage("/mkit jail [username]");
-                return false;
-            }
-            Player t = Bukkit.getPlayer(args[1]);
-            Bukkit.getLogger().info(args[1]);
-
-            if(t.isOnline() == false){
-                Bukkit.getLogger().info("player is not online");
-                sender.sendMessage(t.getName() +"はオンラインではありません");
-                return false;
-            }
-            plugin.push(t);
-            Bukkit.getLogger().info("_jail");
-            plugin.load(t,"_jail");
-            return true;
+        if(args.length == 0){
+            showHelp(sender);
+            return false;
         }
 
-
         if (args[0].equalsIgnoreCase("push")) {
-
-
             //    引数がある場合
             if (args.length == 2) {
                 String name = args[1];
@@ -66,11 +45,9 @@ public class Man10KitCommand implements CommandExecutor {
                 plugin.push(p);
                 return true;
             }
-
-
-
             return true;
         }
+
         ////////////////////////////////////
         //          set
         ////////////////////////////////////
@@ -95,7 +72,7 @@ public class Man10KitCommand implements CommandExecutor {
         }
 
 
-        if ((args[0].equalsIgnoreCase("pop")) || (args[0].equalsIgnoreCase("unjail"))) {
+        if (args[0].equalsIgnoreCase("pop")) {
             //    引数がある場合
 
             if (args.length == 2) {
