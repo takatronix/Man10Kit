@@ -140,7 +140,7 @@ public class Man10KitCommand implements CommandExecutor {
         /////////////////////////////////////////
         //  setコマンド
         if (args[0].equalsIgnoreCase("set")) {
-            if(checkPermission(sender,setermission))
+            if(checkPermission(sender,setPermission))
                 return false;
 
             if (args.length != 2) {
@@ -217,16 +217,16 @@ public class Man10KitCommand implements CommandExecutor {
 
 
             showHelp(sender);
-            return true;
-        }
 
         return true;
     }
+
+
+    //
     void showHelp(CommandSender p){
-        if(!p.hasPermission(plugin.helpPermission)){
-            p.sendMessage("§cコマンド権限がありません");
-            return;
-        }
+        if(checkPermission(p,helpPermission))
+            return ;
+
         p.sendMessage("§e==============§d●§f●§a●§e Man10 Kit Plugin §d●§f●§a●§e===============");
         p.sendMessage("" +
                 "/mkit list 登録済みのキットを表示\n" +
