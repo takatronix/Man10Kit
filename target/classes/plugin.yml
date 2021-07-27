@@ -1,5 +1,5 @@
 name: Man10Kit
-version: ${project.version}
+version: 1.0
 main: red.man10.Man10Kit
 prefix: Man10Kit
 authors: [takatronix]

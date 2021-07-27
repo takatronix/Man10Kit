@@ -245,15 +245,13 @@ public class Man10KitCommand implements CommandExecutor {
     void showHelp(CommandSender p){
         p.sendMessage("§e==============§d●§f●§a●§e Man10 KitPlugin §d●§f●§a●§e===============");
         p.sendMessage("" +
-                "http://man10.red by takatronix\n" +
-                "/mkit list - List all kits\n" +
-                "/mkit load - Load a kit\n" +
-                "/mkit save - Save your inventory to kit\n" +
-                "/mkit delete - Delete a saved kit\n" +
-                "/mkit push - Push user's inventory\n" +
-                "/mkit jail - Apply Jail Kit\n" +
-                "/mkit unuail - Revert user's inventory\n" +
-                "/mkit pop - Pop user's inventory\n"
+                "/mkit list 登録済みのキットを表示\n" +
+                "/mkit load [キット名] キットをロードする(いまのインベントリは消えます)\n" +
+                "/mkit save [キット名] 現在のインベントリを保存する\n" +
+                "/mkit delete [キット名] 登録済みのキットを削除する\n" +
+                "/mkit push 現在のインベントリを瞬間保存する\n" +
+                "/mkit pop 瞬間保存したキットを復元する\n"+
+                "§e§lhttp://man10.red by takatronix\n"
         );
     }
 
