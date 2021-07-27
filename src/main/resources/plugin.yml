@@ -13,28 +13,21 @@ commands:
     mkit help:
         description: ヘルプ表示
         usage: /mkit help
-        permission: man10.kit.help
     mkit list:
         description: 保存されているキットを表示
         usage: /mkit list
-        permission: man10.kit.list
     mkit save:
         description: インベントリをキットに保存する
         usage: /mkit save [キット名]
-        permission: man10.kit.save
     mkit load:
         description: 登録されているキットをロードする
         usage: /mkit load [KitName] [UserName]
-        permission: man10.kit.load
     mkit delete:
         description: 保存済みのキットを削除する
         usage: /mkit delete [キット名]
-        permission: man10.kit.delete
     mkit push:
         description: ユーザーのキットを即時保存する
         usage: /mkit push (UserName)
-        permission: man10.kit.push
     mkit pop:
         description: 即時保存されたキットを戻す
         usage: /mkit pop (UserName)
-        permission: man10.kit.pop

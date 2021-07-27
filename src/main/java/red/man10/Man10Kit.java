@@ -24,22 +24,34 @@ import java.util.List;
 
 public final class Man10Kit extends JavaPlugin {
 
+    // permissions
+    final String helpPermission = "man10.red.man10kit.help";
+    final String loadPermission = "man10.red.man10kit.load";
+    final String savePermission = "man10.red.man10kit.save";
+    final String listPermission = "man10.red.man10kit.list";
+    final String deletePermission = "man10.red.man10kit.delete";
+    final String pushPermission = "man10.red.man10kit.push";
+    final String popPermission = "man10.red.man10kit.pop";
+
+
     @Override
     public void onEnable() {
-
-        // Plugin startup logic
-      //  getServer().getPluginManager().registerEvents (this,this);
-        //
         getCommand("mkit").setExecutor(new Man10KitCommand(this));
         getCommand("kit").setExecutor(new Man10KitCommand(this));
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
+
+
     //      キットを削除
     public boolean delete(CommandSender p, String kitName){
+        if(!p.hasPermission(deletePermission)){
+            p.sendMessage("§cコマンド権限がありません");
+            return false;
+        }
+
         String fileName = kitName;
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
         File f = new File(userdata, File.separator + fileName + ".yml");
@@ -51,12 +63,15 @@ public final class Man10Kit extends JavaPlugin {
         }
         return false;
     }
+
     //      キットを保存する
     public boolean push(Player p){
+        if(!p.hasPermission(pushPermission)){
+            p.sendMessage("§cコマンド権限がありません");
+            return false;
+        }
 
         PlayerInventory inv= p.getInventory();
-        //String kitString = toBase64(inv);
-
         String fileName = p.getUniqueId().toString();
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Users");
         File f = new File(userdata, File.separator + fileName + ".yml");
@@ -83,37 +98,39 @@ public final class Man10Kit extends JavaPlugin {
     }
     //      キットを保存する
     public boolean save(Player p, String kitName){
+        if(!p.hasPermission(savePermission)){
+            p.sendMessage("§cコマンド権限がありません");
+            return false;
+        }
 
         PlayerInventory inv= p.getInventory();
-      //  String kitString = toBase64(inv);
 
         String fileName = kitName;
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
         File f = new File(userdata, File.separator + fileName + ".yml");
         FileConfiguration data = YamlConfiguration.loadConfiguration(f);
-
-
         if (!f.exists()) {
             try {
-
                 data.set("creator", p.getName());
                 data.set("inventory",p.getInventory().getContents());
                 data.set("armor",p.getInventory().getArmorContents());
                 data.save(f);
+                p.sendMessage("キットを保存しました:"+kitName);
             } catch (IOException exception) {
-                p.sendMessage("キットの保存に失敗した");
+                p.sendMessage("キットの保存に失敗した"+kitName);
                 exception.printStackTrace();
                 return false;
             }
         }
-
-        //serverMessage(""+p.getName()+ ":キットを保存した:"+kitName);
-
         return true;
     }
 
-    //      キット
+    //      キット一覧
     public boolean list(CommandSender p) {
+        if(!p.hasPermission(listPermission)){
+            p.sendMessage("§cコマンド権限がありません");
+            return false;
+        }
 
         File folder = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
 
@@ -138,8 +155,14 @@ public final class Man10Kit extends JavaPlugin {
 
         return true;
     }
-        //      キットを読み込む
+
+    //      キットを読み込む
     public boolean load(Player p, String kitName){
+        if(!p.hasPermission(loadPermission)){
+            p.sendMessage("§cコマンド権限がありません");
+            return false;
+        }
+
         String fileName = kitName;
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Kits");
         File f = new File(userdata, File.separator + fileName + ".yml");
@@ -149,12 +172,11 @@ public final class Man10Kit extends JavaPlugin {
             return false;
         }
 
-
         Object a = data.get("inventory");
         Object b = data.get("armor");
 
         if(a == null || b == null){
-            p.sendMessage("No saved inventory to load");
+            p.sendMessage("保存されたインベントリがない"+kitName);
             return true;
         }
         ItemStack[] inventory = null;
@@ -175,12 +197,17 @@ public final class Man10Kit extends JavaPlugin {
         p.getInventory().setContents(inventory);
         p.getInventory().setArmorContents(armor);
 
-
+        p.sendMessage("キットを読み込みました:"+kitName);
 
         return true;
     }
     //      キットを読み込む
     public boolean pop(Player p){
+        if(!p.hasPermission(popPermission)){
+            p.sendMessage("§cコマンド権限がありません");
+            return false;
+        }
+
         String fileName = p.getUniqueId().toString();
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "Users");
         File f = new File(userdata, File.separator + fileName + ".yml");
@@ -218,36 +245,6 @@ public final class Man10Kit extends JavaPlugin {
 
         return true;
     }
-
-    boolean saveUserKit(Player p, String kitName){
-
-        String kitString = toBase64(p.getInventory());
-
-
-        String fileName = kitName;
-        File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Man10Kit").getDataFolder(), File.separator + "PlayerData");
-        File f = new File(userdata, File.separator + fileName + ".yml");
-        FileConfiguration data = YamlConfiguration.loadConfiguration(f);
-
-        //When the player file is created for the first time...
-        if (!f.exists()) {
-            try {
-
-                data.set("creator", p.getName());
-                data.set("inventory",kitString);
-
-                data.save(f);
-            } catch (IOException exception) {
-                serverMessage("キットの保存に失敗した");
-                exception.printStackTrace();
-                return false;
-            }
-        }
-
-        serverMessage("キットの保存に成功した");
-        return true;
-    }
-
 
     //     サーバーメッセージ
     void serverMessage(String text){

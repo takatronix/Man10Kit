@@ -26,6 +26,7 @@ public class Man10KitCommand implements CommandExecutor {
             return false;
         }
 
+        /////////////////////////////////////////
         //  Listコマンド
         if (args[0].equalsIgnoreCase("list")) {
             Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
@@ -34,9 +35,9 @@ public class Man10KitCommand implements CommandExecutor {
             return true;
         }
 
+        /////////////////////////////////////////
         //  Deleteコマンド
         if (args[0].equalsIgnoreCase("delete")) {
-
             if (args.length != 2) {
                 sender.sendMessage("§5§l/mkit delete [KitName]");
                 return false;
@@ -47,7 +48,37 @@ public class Man10KitCommand implements CommandExecutor {
             return true;
         }
 
+        if (sender instanceof Player == false){
+            sender.sendMessage("§5プレイヤーのみのコマンドになります");
+            return false;
+        }
 
+        Player player = (Player)sender;
+
+        /////////////////////////////////////////
+        //  Saveコマンド
+        if (args[0].equalsIgnoreCase("save")) {
+            if (args.length != 2) {
+                player.sendMessage("§a/mkit save [キット名]");
+                return false;
+            }
+            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+                plugin.save(player,args[1]);
+            });
+            return true;
+        }
+        /////////////////////////////////////////
+        //  Loadコマンド
+        if (args[0].equalsIgnoreCase("load")) {
+            if (args.length != 2) {
+                player.sendMessage("§a/mkit load [キット名]");
+                return false;
+            }
+            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+                plugin.load(player,args[1]);
+            });
+            return true;
+        }
 
 
 
@@ -119,7 +150,7 @@ public class Man10KitCommand implements CommandExecutor {
                 return true;
             }
 
-            //      ユーザーコマンド
+            //      ユーザーコマンドかチェック
             if (sender instanceof Player){
                 Player p = (Player) sender;
                 plugin.pop(p);
@@ -149,33 +180,6 @@ public class Man10KitCommand implements CommandExecutor {
             }
 
 
-            ////////////////////////////////////
-            //          save
-            ////////////////////////////////////
-            if (args[0].equalsIgnoreCase("save")) {
-
-                if (args.length <= 1) {
-                    p.sendMessage("/mkit save [KitName]");
-                    return false;
-                }
-
-                plugin.save(p,args[1]);
-                return true;
-            }
-
-            ////////////////////////////////////
-            //          Load
-            ////////////////////////////////////
-            if (args[0].equalsIgnoreCase("load")) {
-
-                if (args.length <= 1) {
-                    p.sendMessage("/mkit load [KitName]");
-                    return false;
-                }
-
-                plugin.load(p,args[1]);
-                return true;
-            }
 
 
 
@@ -226,6 +230,10 @@ public class Man10KitCommand implements CommandExecutor {
         return true;
     }
     void showHelp(CommandSender p){
+        if(!p.hasPermission(plugin.helpPermission)){
+            p.sendMessage("§cコマンド権限がありません");
+            return;
+        }
         p.sendMessage("§e==============§d●§f●§a●§e Man10 Kit Plugin §d●§f●§a●§e===============");
         p.sendMessage("" +
                 "/mkit list 登録済みのキットを表示\n" +
