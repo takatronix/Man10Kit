@@ -236,8 +236,8 @@ public class Man10KitCommand implements CommandExecutor {
                 "§e/mkit save [キット名] §f現在のインベントリを保存する\n" +
                 "§e/mkit set [ユーザー名] [キット名] §fプレーヤーにキットを設定する\n" +
                 "§e/mkit delete [キット名] §f登録済みのキットを削除する\n" +
-                "§e/mkit push §f現在のインベントリを瞬間保存する\n" +
-                "§e/mkit pop §f瞬間保存したキットを復元する\n"+
+                "§e/mkit push (プレイヤー名(なければ自分)) §f現在のインベントリを瞬間保存する\n" +
+                "§e/mkit pop (プレイヤー名(なければ自分)) §f瞬間保存したキットを復元する\n"+
                 "§e§lhttp://man10.red by takatronix\n"
         );
     }
