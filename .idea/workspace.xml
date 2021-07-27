@@ -11,8 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f8c4f2a7-0dbc-4360-a763-03c9514d67c3" name="デフォルト変更リスト" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/red/man10/Man10Kit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/red/man10/Man10Kit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/red/man10/Man10KitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/red/man10/Man10KitCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1627342373716</updated>
-      <workItem from="1627342375050" duration="5626000" />
+      <workItem from="1627342375050" duration="5997000" />
     </task>
     <servers />
   </component>
